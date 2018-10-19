@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/jsf-project">
+       <ResourceLink name="jdbc/jsf_project_datasource" global="jdbc/jsf_project_datasource" type="javax.sql.DataSource" />
+</Context>

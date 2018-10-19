@@ -1,0 +1,12 @@
+nbproject
+._*
+.~lock.*
+.buildpath
+.DS_Store
+.metadata
+.settings
+.idea
+.project
+.settings
+target
+build.xml
