@@ -1,20 +1,26 @@
 package br.com.davifelipe.util;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+@ApplicationScoped
 public class Util {
 
-	private static EntityManagerFactory factory;
+	private  EntityManagerFactory factory;
 	
-	static{
+	public Util(){
 		if(factory == null){
 			factory = Persistence.createEntityManagerFactory("default");
 		}
 	}
 	
-	public static EntityManager getEntityManager(){
+	@Produces
+	@RequestScoped
+	public  EntityManager getEntityManager(){
 		return factory.createEntityManager();
 	}
 }

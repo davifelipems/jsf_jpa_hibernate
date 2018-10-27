@@ -4,15 +4,17 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import org.hibernate.Session;
 
-import br.com.davifelipe.util.Util;
-
+@Named
 public class GenericDao<T, PK extends Serializable> {
 
+	@Inject	
 	private EntityManager entityManager;
 	
 	protected Class<T> entityClass;
@@ -22,7 +24,6 @@ public class GenericDao<T, PK extends Serializable> {
 	@SuppressWarnings("unchecked")
 	public GenericDao(){
 		
-		entityManager = Util.getEntityManager();
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
 				.getGenericSuperclass();
 		

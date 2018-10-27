@@ -26,6 +26,22 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Weld (CDI) -->
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.2.9.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Jandex (CDI) -->
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jandex</artifactId>
+			<version>1.2.3.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

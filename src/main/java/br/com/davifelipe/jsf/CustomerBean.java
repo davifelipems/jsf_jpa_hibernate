@@ -1,15 +1,20 @@
 package br.com.davifelipe.jsf;
 
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.davifelipe.dao.CustomerDao;
 import br.com.davifelipe.model.Customer;
 
-@ManagedBean
+@RequestScoped
+@Named
 public class CustomerBean {
 	
-	private Customer customer = new Customer();
-	private CustomerDao dao = new CustomerDao();
+	@Inject
+	private Customer customer;
+	@Inject
+	private CustomerDao dao;
 	public Customer getCustomer() {
 		return customer;
 	}
