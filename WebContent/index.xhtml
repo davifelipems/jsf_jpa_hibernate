@@ -1,22 +1,115 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html">
-	  
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <h:head>
 	<title>Insert title here</title>
-</h:head>	  
+</h:head>
 <h:body>
-	<h:form>
-		<h:outputLabel value="First name"/>
-		<h:inputText value="#{customerBean.customer.firstName}"/>
-		<br />
-		
-		<h:outputLabel value="Last name"/>
-		<h:inputText value="#{customerBean.customer.lastName}"/>
-		
-		<h:commandButton value="OK" action="#{customerBean.save}"/>
-		
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage name="images/ajaxloadingbar.gif" />
+	</p:dialog>
+
+	<h:form id="form_customer">
+
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+
+		<p:inputText type="hidden" value="#{customerBean.customer.id}" />
+		<p:panelGrid columns="2">
+			<p:column>
+				<p:outputLabel value="ID" />
+			</p:column>
+			<p:column>
+				<p:inputText disabled="true" value="#{customerBean.customer.id}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel value="First name" />
+			</p:column>
+			<p:column>
+				<p:inputText value="#{customerBean.customer.firstName}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel value="Last name" />
+			</p:column>
+			<p:column>
+				<p:inputText value="#{customerBean.customer.lastName}" />
+			</p:column>
+			<p:column>
+				<p:commandButton 
+					value="New" 
+					icon="fa fa-fw fa-plus"
+					update="form_customer"
+					action="#{customerBean.newRecord}" />
+			</p:column>
+			<p:column>
+				<p:commandButton 
+					value="Save" 
+					icon="fa fa-fw fa-save"
+					update="form_customer"
+					action="#{customerBean.save}" />
+			</p:column>
+		</p:panelGrid>
+
+		<p:dataTable id="table_customer"
+					 var="customer"
+				     value="#{customerBean.customers}"
+			rows="10" paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">
+			<p:column headerText="Id">
+				<h:outputText value="#{customer.id}" />
+			</p:column>
+
+			<p:column headerText="First Name">
+				<h:outputText value="#{customer.firstName}" />
+			</p:column>
+
+			<p:column headerText="Last Name">
+				<h:outputText value="#{customer.lastName}" />
+			</p:column>
+
+			<p:column headerText="Actions">
+				<p:commandButton 
+					title="Edit" 
+					update="form_customer"
+					icon="fa fa-fw fa-edit"
+					process="@this">
+					<f:setPropertyActionListener target="#{customerBean.customer}"
+						value="#{customer}" />
+				</p:commandButton>
+
+				<p:commandButton 
+					action="#{customerBean.removeRecord}" 
+					update="form_customer"
+					icon="fa fa-fw fa-trash"
+					immediate="true">
+					<f:setPropertyActionListener target="#{customerBean.customer}"
+						value="#{customer}" />
+					<p:confirm header="Confirmation" message="Are you sure?"
+						icon="ui-icon-alert" />
+				</p:commandButton>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</p:column>
+
+		</p:dataTable>
+
 	</h:form>
 </h:body>
 </html>

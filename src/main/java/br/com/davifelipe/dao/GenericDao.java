@@ -31,25 +31,27 @@ public class GenericDao<T, PK extends Serializable> {
 	}
 	
 	public T save(final T entity){
+		T entityReturn = null;
 		try {
 			
 			entityManager.getTransaction().begin();
-			entityManager.persist(entity);
+			entityReturn = entityManager.merge(entity);
 			entityManager.getTransaction().commit();
-			entityManager.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return entity;
+		return entityReturn;
 	}
 	
 	public T getById(final PK id){
 		T t = null;
 		
 		try {
+			entityManager.getTransaction().begin();
 			t = entityManager.find(entityClass, id);
+			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,12 +61,17 @@ public class GenericDao<T, PK extends Serializable> {
 	
 	public void delete(final T entity){
 		
+		entityManager.getTransaction().begin();
 		entityManager.remove(entity);
+		entityManager.getTransaction().commit();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(){
-		return entityManager.createQuery("FROM "+entityClass.getName()).getResultList();
+		entityManager.getTransaction().begin();
+		List<T> entityReturn = entityManager.createQuery("FROM "+entityClass.getName()).getResultList();
+		entityManager.getTransaction().commit();
+		return entityReturn;
 	}
 	
 	public Session getSession(){
