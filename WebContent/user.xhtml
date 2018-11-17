@@ -10,9 +10,9 @@
 	<title>Insert title here</title>
 </h:head>
 <h:body>
-	
+
 	<ui:include src="/template/header.xhtml" />
-	
+
 	<div class="center" id="content">
 
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -23,69 +23,76 @@
 			<p:graphicImage name="images/ajaxloadingbar.gif" />
 		</p:dialog>
 
-		<h:form id="form_customer">
+		<h:form id="form_user">
 
 			<p:messages id="messages" showDetail="true" closable="true">
 				<p:autoUpdate />
 			</p:messages>
 
-			<p:inputText type="hidden" value="#{customerBean.model.id}" />
+			<p:inputText type="hidden" value="#{userBean.model.id}" />
 			<p:panelGrid columns="2">
 				<p:column>
 					<p:outputLabel value="ID" />
 				</p:column>
 				<p:column>
-					<p:inputText disabled="true" value="#{customerBean.model.id}" />
+					<p:inputText disabled="true" value="#{userBean.model.id}" />
 				</p:column>
 				<p:column>
-					<p:outputLabel value="First name" />
+					<p:outputLabel value="Name" />
 				</p:column>
 				<p:column>
-					<p:inputText value="#{customerBean.model.firstName}" />
+					<p:inputText value="#{userBean.model.name}" />
 				</p:column>
 				<p:column>
-					<p:outputLabel value="Last name" />
+					<p:outputLabel value="Profile" />
 				</p:column>
 				<p:column>
-					<p:inputText value="#{customerBean.model.lastName}" />
+					<p:selectOneMenu id="profile" value="#{userBean.model.profile}"
+						style="width:125px">
+						<f:selectItem itemLabel="Select" itemValue="" />
+						<f:selectItem itemLabel="User" itemValue="#{userBean.userCode}" />
+						<f:selectItem itemLabel="Admin" itemValue="#{userBean.adminCode}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Password" />
+				</p:column>
+				<p:column>
+					<p:inputText type="password" value="#{userBean.model.password}" />
 				</p:column>
 				<p:column>
 					<p:commandButton value="New" icon="fa fa-fw fa-plus"
-						update="form_customer" action="#{customerBean.newRecord}" />
+						update="form_user" action="#{userBean.newRecord}" />
 				</p:column>
 				<p:column>
 					<p:commandButton value="Save" icon="fa fa-fw fa-save"
-						update="form_customer" action="#{customerBean.save}" />
+						update="form_user" action="#{userBean.save}" />
 				</p:column>
 			</p:panelGrid>
 
-			<p:dataTable id="table_customer" var="customer"
-				value="#{customerBean.listOfElements}" rows="10" paginator="true"
+			<p:dataTable id="table_user" var="user"
+				value="#{userBean.listOfElements}" rows="10" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<p:column headerText="Id">
-					<h:outputText value="#{customer.id}" />
+					<h:outputText value="#{user.id}" />
 				</p:column>
 
-				<p:column headerText="First Name">
-					<h:outputText value="#{customer.firstName}" />
-				</p:column>
-
-				<p:column headerText="Last Name">
-					<h:outputText value="#{customer.lastName}" />
+				<p:column headerText="Name">
+					<h:outputText value="#{user.name}" />
 				</p:column>
 
 				<p:column headerText="Actions">
-					<p:commandButton title="Edit" update="form_customer"
+					<p:commandButton title="Edit" update="form_user" action="#{userBean.clearPassword}"
 						icon="fa fa-fw fa-edit" process="@this">
-						<f:setPropertyActionListener target="#{customerBean.model}"
-							value="#{customer}" />
+						<f:setPropertyActionListener target="#{userBean.model}"
+							value="#{user}" />
 					</p:commandButton>
 
-					<p:commandButton action="#{customerBean.removeRecord}"
-						update="form_customer" icon="fa fa-fw fa-trash" immediate="true">
-						<f:setPropertyActionListener target="#{customerBean.model}"
-							value="#{customer}" />
+					<p:commandButton action="#{userBean.removeRecord}"
+						update="form_user" icon="fa fa-fw fa-trash" immediate="true">
+						<f:setPropertyActionListener target="#{userBean.model}"
+							value="#{user}" />
 						<p:confirm header="Confirmation" message="Are you sure?"
 							icon="ui-icon-alert" />
 					</p:commandButton>

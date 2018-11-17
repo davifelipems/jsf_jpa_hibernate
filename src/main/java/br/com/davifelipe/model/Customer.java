@@ -2,8 +2,8 @@ package br.com.davifelipe.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -11,7 +11,8 @@ import javax.validation.constraints.Size;
 public class Customer implements EntityInterface<Integer>{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(generator="customer_id_seq")
+	@SequenceGenerator(name="customer_id_seq",sequenceName="customer_id_seq",allocationSize=1)
 	private Integer id;
 	
 	@NotEmpty(message="First Name can not be empty")

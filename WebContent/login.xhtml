@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Login</title>
+</h:head>
+<h:body>
+
+	<h:outputStylesheet name="css/style.css" />
+	<div class="center" id="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form_login">
+
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+			<p:panelGrid columns="2">
+				
+				<p:column>
+					<p:outputLabel value="Name" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{loginBean.model.name}" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel value="Password" />
+				</p:column>
+				<p:column>
+					<p:inputText type="password" value="#{loginBean.model.password}" />
+				</p:column>
+				<p:column>
+					<p:commandButton value="OK" icon="fa fa-fw fa-user-secret"
+						update="form_login" action="#{loginBean.login}" />
+				</p:column>
+			</p:panelGrid>
+
+		</h:form>
+	</div>
+	<ui:include src="/template/footer.xhtml" />
+</h:body>
+</html>

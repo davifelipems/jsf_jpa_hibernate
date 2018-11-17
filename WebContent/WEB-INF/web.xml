@@ -10,7 +10,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
 	<context-param>
 		<param-name>primefaces.FONT_AWESOME</param-name>
@@ -18,6 +18,6 @@
 	</context-param>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
+		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 </web-app>

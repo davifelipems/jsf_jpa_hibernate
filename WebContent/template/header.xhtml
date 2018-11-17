@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition>
+	<h:outputStylesheet name="css/style.css" />
+	<div id="top-header">
+		<div id="header-logo">
+			<p:graphicImage name="images/primefaces_logo.png" height="50" />
+		</div>
+		<div id="header-info">
+			<strong>User: </strong> <p:outputLabel value="#{loginBean.loggedUser.name}"/>
+		</div>
+	</div>
+
+	<div id="top-menu">
+		<h:form>
+		<p:megaMenu orientation="horizontal">
+			<p:menuitem value="User" url="/user.jsf" icon="fa fw fa-user" />
+			<p:menuitem value="Customer" url="/index.jsf" icon="fa fw fa-user" />
+			<p:menuitem value="Log out" action="#{loginBean.logOut}" icon="fa fw fa-sign-out" />
+		</p:megaMenu>
+		</h:form>
+	</div>
+</ui:composition>
+
+</html>

@@ -13,7 +13,7 @@ import br.com.davifelipe.util.Util;
 
 public class GenericDao<T, PK extends Serializable> {
 
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	
 	protected Class<T> entityClass;
 	
